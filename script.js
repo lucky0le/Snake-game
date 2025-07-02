@@ -11,7 +11,7 @@ let snake = [
 let dx = boxSize;
 let dy = 0;
 function drawPart(part){
-    ctx.fillSytle = "green";
+    ctx.fillStyle = "green";
     ctx.fillRect(part.x,part.y,boxSize,boxSize)
 }
 function drawSnake(){
@@ -23,13 +23,18 @@ function moveSnake(){
         y:snake[0].y +dy,
     };
     snake.unshift(head);
-    snake.pop();
+    if(head.x === food.x && head.y === food.y){
+        food = getRandomFoodPosition();
+    } else {
+        snake.pop();
+    }
 }
 function clearCanvas(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 function gameLoop(){
     clearCanvas();
+    drawFood();
     moveSnake();
     drawSnake();
 }
@@ -56,4 +61,24 @@ function changeDirection(event) {
         dx = boxSize;
         dy = 0;
     }
+}
+
+let food = getRandomFoodPosition();
+
+function getRandomFoodPosition() {
+    const maxX = canvas.width / boxSize;
+    const maxY = canvas.height / boxSize;
+    return {
+        x: Math.floor(Math.random() * maxX) * boxSize,
+        y: Math.floor(Math.random() * maxY) * boxSize
+    };
+}
+
+function drawFood(){
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, boxSize ,boxSize);
+}
+
+function chackCollision(){
+    con
 }
