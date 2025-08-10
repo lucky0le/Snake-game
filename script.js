@@ -40,8 +40,8 @@ function gameLoop(){
 
     if(chackCollision()){
         clearInterval(gameInterval);
-        ctx.fillStyle = "back";
-        ctx.font = "24px snas-serif";
+        ctx.fillStyle = "black";
+        ctx.font = "24px sans-serif";
         ctx.textAlign = "center";
         ctx.fillText("Game Over",canvas.width / 2,canvas.height / 2);
         return ;
@@ -49,7 +49,7 @@ function gameLoop(){
 
     drawSnake();
 }
-let ganmInterval = setInterval(gameLoop,150);
+let gameInterval = setInterval(gameLoop,150);
 document.addEventListener("keydown",changeDirection);
 function changeDirection(event) {
     const key = event.key;
@@ -98,7 +98,7 @@ function chackCollision(){
     }
     //撞到自己
     for(let i = 1; i < snake.length; i++){
-        if(snake[i].x === head.x && snake[i].y === head.h){
+        if(snake[i].x === head.x && snake[i].y === head.y){
             return true;
         }
     }
