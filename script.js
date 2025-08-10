@@ -3,6 +3,9 @@ const ctx = canvas.getContext("2d");
 ctx.fillStyle = "green";
 //ctx.fillRect(part.x, part.y, boxSize, boxSize);
 const boxSize = 20;
+//let gameInterval = null;
+let gameOver = false;
+let score = 0;
 let snake = [
     {x:160,y:200},
     {x:140,y:200},
@@ -36,14 +39,18 @@ function gameLoop(){
     clearCanvas();
     drawFood();
     moveSnake();
-    drawSnake();
+    
 
     if(chackCollision()){
+        gameOver = true;
+        
         clearInterval(gameInterval);
         ctx.fillStyle = "black";
         ctx.font = "24px sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText("Game Over",canvas.width / 2,canvas.height / 2);
+        ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 10);
+        ctx.font = "16px sans-serif";
+        ctx.fillText("按空格重新开始", canvas.width / 2, canvas.height / 2 + 10);
         return ;
     }
 
@@ -51,6 +58,12 @@ function gameLoop(){
 }
 let gameInterval = setInterval(gameLoop,150);
 document.addEventListener("keydown",changeDirection);
+document.addEventListener("keydown",function(e){
+    if(e.code === "Space" && gameOver){
+        gameOver = false;
+        restartGame();
+    }
+});
 function changeDirection(event) {
     const key = event.key;
     const goingUp = dy === -boxSize;
@@ -103,4 +116,16 @@ function chackCollision(){
         }
     }
     return false;
+}
+
+function restartGame(){
+    snake = [
+        {x:160,y:200},
+        {x:140,y:200},
+        {x:120,y:200}
+    ];
+    dx = boxSize;
+    score = 0;
+    food = getRandomFoodPosition();
+    gameInterval = setInterval(gameLoop, 150);
 }
