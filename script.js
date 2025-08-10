@@ -57,6 +57,7 @@ function gameLoop(){
     drawSnake();
 }
 let gameInterval = setInterval(gameLoop,150);
+//重新开始游戏的触发
 document.addEventListener("keydown",changeDirection);
 document.addEventListener("keydown",function(e){
     if(e.code === "Space" && gameOver){
@@ -64,6 +65,7 @@ document.addEventListener("keydown",function(e){
         restartGame();
     }
 });
+
 function changeDirection(event) {
     const key = event.key;
     const goingUp = dy === -boxSize;
@@ -117,7 +119,7 @@ function chackCollision(){
     }
     return false;
 }
-
+//重新开始游戏
 function restartGame(){
     snake = [
         {x:160,y:200},
