@@ -26,17 +26,30 @@ function moveSnake(){
         y:snake[0].y +dy,
     };
     snake.unshift(head);
+    //积分
     if(head.x === food.x && head.y === food.y){
+        score++;
         food = getRandomFoodPosition();
     } else {
         snake.pop();
     }
+    
+
 }
 function clearCanvas(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 }
+//积分函数
+function drawScore(){
+    ctx.fillStyle ="black";
+    ctx.font = "20px sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("Score: " + score,10,20);
+}
+
 function gameLoop(){
     clearCanvas();
+    drawScore();
     drawFood();
     moveSnake();
     
